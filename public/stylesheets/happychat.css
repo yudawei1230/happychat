@@ -1,0 +1,61 @@
+/* line 3, ../sass/happychat.sass */
+html body * {
+  margin: 0px;
+  padding: 0px; }
+/* line 6, ../sass/happychat.sass */
+html body header {
+  display: block;
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  text-align: center;
+  background-color: white; }
+  /* line 13, ../sass/happychat.sass */
+  html body header .headerbackground {
+    position: absolute;
+    background: #222222;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1; }
+  /* line 21, ../sass/happychat.sass */
+  html body header .light {
+    background: white;
+    height: 100px;
+    width: 20px;
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    z-index: 1; }
+  /* line 29, ../sass/happychat.sass */
+  html body header nav {
+    z-index: 100;
+    height: 100%; }
+    /* line 32, ../sass/happychat.sass */
+    html body header nav * {
+      color: #9d9d9d;
+      height: 100%;
+      display: inline-block;
+      position: relative;
+      z-index: 100; }
+    /* line 38, ../sass/happychat.sass */
+    html body header nav li {
+      position: relative;
+      list-style: none;
+      height: 100%; }
+      /* line 42, ../sass/happychat.sass */
+      html body header nav li h2 {
+        height: 100%;
+        text-align: center;
+        background: #222222;
+        display: inline-block; }
+        /* line 47, ../sass/happychat.sass */
+        html body header nav li h2:hover {
+          color: rgba(225, 225, 225, 0.5);
+          cursor: pointer; }
+      /* line 51, ../sass/happychat.sass */
+      html body header nav li .headrt_plus {
+        right: 20px;
+        top: 20px;
+        font-size: 20px; }

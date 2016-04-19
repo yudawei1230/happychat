@@ -1,0 +1,71 @@
+doctype html
+html(ng-app='myapp')
+	head
+		title=title
+		link(rel='stylesheet',href='public/stylesheets/login.css')
+		link(rel='stylesheet',href='../../bower_components/bootstrap/dist/css/bootstrap.css')
+		script(src='public/javascripts/login.js')
+		meta(charset='utf-8')
+		meta(name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no")
+	body
+		.login_shadow
+		img(class='login_background',src='public/images/bg_nologin1.jpg')
+		h1 happy communication
+		.login(ng-controller='login',changeform)
+			div
+				.login_title
+					h3 登录到您的账户
+				form
+					div
+						i(class='glyphicon glyphicon-user')
+						input(type='text',placeholder='  电子邮箱/手机',class='login_user',ng-model='user.username')
+					div
+						i(class='glyphicon glyphicon-lock')
+						input(type='password',placeholder='  密码',class='login_password',ng-model="user.password")
+					.login_remember
+						input(type='checkbox',remember,ng-model='check') 
+						p 记得我
+						.login_login
+							button(type='submit',class='btn btn-primary',login ) 登陆
+							i(class='glyphicon glyphicon-expand')
+					h4 忘记密码了吗？
+					.login_resetPassword
+						p 不用担心，点击
+						a(resetpassword) 这里
+						p 重置密码
+				.createAcount
+					p 还没有账户？
+					a(registerhtml ng-click = 'registers()') 创建一个账户
+			.login_register
+				.login_title
+					h3 注册
+				form(class='login_form')
+					.register_form 
+						input(type='text',placeholder='  名字',class='login_user' ng-model='registerUser.username' )
+						i(class = 'glyphicon glyphicon-ok',style="color:red"  uservalidation) 
+						i(class = 'glyphicon glyphicon-remove',style="color:#ddd" )
+					.register_form 			
+						input(type='text',placeholder='  手机',class='login_user' ng-model='registerUser.phone' )
+						i(class = 'glyphicon glyphicon-ok',style="color:red" phonevalidate)
+						i(class = 'glyphicon glyphicon-remove',style="color:#ddd" )
+					.register_form  
+						input(type='text',placeholder='  电子邮箱',class='login_user' ng-model='registerUser.email' )
+						i(class = 'glyphicon glyphicon-ok',style="color:red" emailvalidate)
+						i(class = 'glyphicon glyphicon-remove',style="color:#ddd" )
+					.register_form  			
+						input(type='password',placeholder='  密码',class='login_user' ng-model='registerUser.password' )
+						i(class = 'glyphicon glyphicon-ok',style="color:red" passwordvalidate)
+						i(class = 'glyphicon glyphicon-remove',style="color:#ddd" )
+					.register_form  			
+						input(type='password',placeholder='  密码确认',class='login_user' ng-model='registerUser.passwordConfirmation'  )
+						i(class = 'glyphicon glyphicon-ok',style="color:red" passwordConfirmationvalidate)
+						i(class = 'glyphicon glyphicon-remove',style="color:#ddd" )
+					.login_remember
+						.login_login
+							button(class='btn btn-primary',register) 注册
+							i(class='glyphicon glyphicon-expand')
+					.login_resetPassword
+				.createAcount
+					p 已有帐号？
+					a(ng-click = 'loginhtml()') 现在登陆!
+

@@ -1,0 +1,54 @@
+html
+	body
+		*
+			margin: 0px
+			padding: 0px
+		header
+			display: block
+			width: 100%
+			height: 100px
+			position: fixed
+			text-align: center
+			background-color: #FFF
+			.headerbackground
+				position: absolute
+				background: #222
+				left: 0px
+				top: 0px
+				width: 100%
+				height: 100%
+				z-index: 1
+			.light
+				background: #FFF
+				height: 100px
+				width: 20px
+				position: fixed
+				top: 0px
+				left: 50%
+				z-index: 1
+			nav
+				z-index: 100
+				height: 100%
+				*
+					color: #9d9d9d
+					height: 100%
+					display: inline-block
+					position: relative
+					z-index: 100
+				li
+					position: relative
+					list-style: none
+					height: 100%
+					h2
+						height: 100%
+						text-align: center
+						background: #222
+						display: inline-block
+						&:hover
+							color: rgba(225,225,225,0.5)
+							cursor: pointer
+
+					.headrt_plus
+						right: 20px
+						top: 20px
+						font-size: 20px
