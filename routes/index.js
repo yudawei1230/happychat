@@ -6,6 +6,14 @@ router.get('/', function(req, res, next) {
   var time = new Date().toTimeString();
   res.render('login', { title: 'happychat' });
 });
+router.get('/canvas', function(req, res, next) {
+  var time = new Date().toTimeString();
+  res.render('hcanvas',function(err,html){
+    if(err)
+      console.log(err);
+    res.send(html);
+  });
+});
 router.post('/bin/www', function(req, res, next) {
 	if(req.query.action == 'login')
   		mongo.login(JSON.parse(req.query.data),res);
