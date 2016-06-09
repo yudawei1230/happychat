@@ -13,6 +13,14 @@ router.get('/canvas', commond.getCanvas);
 router.get('/happychat',commond.getHappychat);
 router.get('/geth',commond.geth);
 //
+router.get('/op',function(req,res,next){
+    res.render('view/orderCheck',function(err,html){
+      if(err)
+        console.log(err);
+      else
+        res.send(html);
+    })
+})
 router.post('/bin/www', function(req, res, next) {
 	if(req.query.action == 'login')
   		mongo.login(JSON.parse(req.query.data),res);
