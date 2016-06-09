@@ -4,64 +4,65 @@
 	<title></title>
 </head>
 <body style="height:100%;width:100%;position: absolute;margin:0px;padding:0px">
-	<canvas id="canvas" style="overflow: hidden;" ></canvas>
+	<canvas id="canvas" style="overflow: hidden;margin:0px;padding:0px;" ></canvas>
 	<script type="text/javascript">
 		(function(){
-			var canvas = document.getElementById('canvas');
-			canvas.onmousemove = function(e){
-				console.log(e.clientX);
-				console.log(e.clientY);
+			class ball {
+				constructor () {
+					this.radius = 3+13*Math.random();
+					this.randomx = canvas.width*Math.random()-this.radius;
+					this.randomy = canvas.height*Math.random()-this.radius;
+					this.x  = this.randomx > this.radius ? this.randomx : this.radius;
+					this.y  = this.randomy > this.radius ? this.randomy : this.radius;
+					this.vx = (Math.random()>0.5 ? 1: -1) * Math.random();
+					this.vy = (Math.random()>0.5 ? 1: -1) * Math.random();
+				}
+				isOut() {
+					if(this.x+this.radius>canvas.width||this.x-this.radius<0)
+						this.vx = -this.vx;
+					if(this.y+this.radius>canvas.height||this.y-this.radius<0)
+						this.vy = -this.vy;
+					this.x += this.vx;
+					this.y += this.vy;
+				}
+				isLink(linkBall) {
+					if(Math.pow(Math.pow(this.x-linkBall.x,2)+Math.pow(this.y-linkBall.y,2),0.5)<300)
+						{
+							context.beginPath();
+							context.moveTo(this.x,this.y);
+							context.lineTo(linkBall.x,linkBall.y);
+							context.stroke();
+						}
+				}	
 			}
+			var canvas = document.getElementById('canvas');
 			var context = canvas.getContext('2d');
 			var balls = [];
-			canvas.width = document.body.clientWidth-15;
-			canvas.height = document.body.clientHeight-15;
-			for(i=0;i<parseInt(15*Math.random()+17);i++)
-				{
-					balls[i] = {};
-					balls[i]['radius'] = 3+13*Math.random();
-					balls[i]['randomx'] = canvas.width*Math.random()-balls[i].radius;
-					balls[i]['randomy'] = canvas.height*Math.random()-balls[i].radius;
-					balls[i]['x']  = balls[i].randomx> balls[i].radius ?balls[i].randomx:balls[i].radius;
-					balls[i]['y']  = balls[i].randomy> balls[i].radius ?balls[i].randomy:balls[i].radius;
-					balls[i]['vx'] = Math.pow(-1,parseInt(10*(Math.random()-0.5)))*Math.random();
-					balls[i]['vy'] = Math.pow(-1,parseInt(10*(Math.random()-0.5)))*Math.random();
-				}
-			(function(){
-				setInterval(function(){
-			render(context);
-			update();
-				},40);
-				
-			})()
-
+			canvas.width = '100%';
+			canvas.height = '100%';
+			var ballNums = parseInt(15*Math.random()+17);
+			while(ballNums--) {
+				balls.push(new ball());
+			}
+			setInterval(()=>{
+				render(context);
+				update();
+				},40);			
 			function update(){
 				balls.forEach(function(item){
-					if(item.x+item.radius>canvas.width||item.x-item.radius<0)
-						item.vx = -item.vx;
-					if(item.y+item.radius>canvas.height||item.y-item.radius<0)
-						item.vy = -item.vy;
-					item.x += item.vx;
-					item.y +=item.vy;
+					item.isOut();
 				});
 			}
 			function render(context){
 				context.clearRect(0,0,canvas.width,canvas.height);
 				context.fillStyle='rgba(238,238,238,0.7)';
 				context.strokeStyle = 'rgba(221,221,221,0.5)';
-				balls.forEach(function(item){
-					var ball = item;
+				balls.forEach(function(ball1){
 					context.beginPath();
-					context.arc(item.x,item.y,item.radius,0,2*Math.PI);
+					context.arc(ball1.x,ball1.y,ball1.radius,0,2*Math.PI);
 					context.fill();
-					balls.forEach(function(item){
-						if(Math.pow(Math.pow(ball.x-item.x,2)+Math.pow(ball.y-item.y,2),0.5)<300)
-						{
-							context.beginPath();
-							context.moveTo(item.x,item.y);
-							context.lineTo(ball.x,ball.y);
-							context.stroke();
-						}
+					balls.forEach(function(ball2){
+						ball1.isLink(ball2);
 					});
 				});			
 			}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>game1</title>
+</head>
+<body style="position: absolute;width: 100%;height: 100%;padding: 0px;margin:0px">
+<canvas id='game'></canvas>
+<script type="text/javascript">
+	(function(){
+		var canvas = document.getElementById('game');
+		canvas.width = document.body.clientWidth-15;
+		canvas.height = document.body.clientHeight-15;
+		var context = canvas.getContext('2d');
+		var wall = [];
+		var margin = canvas.width/15;
+		var wallnum = 20;
+		var wallWidth = (canvas.width-2*margin)/wallnum;
+		var wallHeight = 20;
+		var strokeX;
+		var strokeY;
+		var ball = {
+			x:canvas.width/2,
+			y:canvas.height-80-wallWidth/8+2,
+			radius:wallWidth/8,
+			vx:0,
+			vy:-5
+		};
+		var blank = {
+			x:canvas.width/2-100,
+			y:canvas.height-80,
+			width:200,
+			height:20
+		}
+
+		for(var i = 0; i<4 ; i++)
+		{
+			wall.push([]);
+			for(var j= 0;j<20;j++)
+				wall[i].push([1]);
+		}
+		function render(){
+			context.clearRect(0,0,canvas.width,canvas.height);
+			context.strokeStyle = '#AAA';
+			wall.forEach(function(row,index){
+				if(index!=0)
+				{
+					strokeY +=20;
+					strokeX = margin;
+				}
+				else
+				{
+					strokeY = parseInt(margin);
+					strokeX = margin;
+				}
+				row.forEach(function(col){
+					if(col!=-1)
+					{
+						context.beginPath();
+						context.rect(strokeX,strokeY,wallWidth,wallHeight);
+						if(col==0)
+						{
+							context.moveTo(strokeX+wallWidth/2,strokeY);
+							context.lineTo(strokeX+wallWidth*3/4,strokeY+wallHeight/4);
+							context.lineTo(strokeX+wallWidth/4,strokeY+wallHeight*3/4);
+							context.lineTo(strokeX+wallWidth/2,strokeY+wallHeight);
+						}
+						context.stroke();
+					}
+					strokeX +=wallWidth+1;
+				});
+			});
+			context.beginPath();
+			context.rect(blank.x,blank.y,blank.width,blank.height);
+			context.stroke();
+			context.beginPath();
+			context.fillstyle = 'red';
+			context.arc(ball.x,ball.y,ball.radius,0,Math.PI*2);
+			context.fill();
+			context.stroke();
+		}
+		function update(){
+			ball.x +=ball.vx;
+			ball.y +=ball.vy;    //move
+
+			if(ball.y+ball.radius>=blank.y)  //catch ball
+			{
+				if(ball.y<blank.y)	
+				if(ball.x+ball.radius>=blank.x&&ball.x-ball.radius<=blank.x+blank.width)
+				{
+					ball.vy = -1*ball.vy;
+					ball.vx = ball.x>blank.x+blank.width/2 ? 5:-5;
+				}
+			}
+			//out
+			if(ball.x<=0||ball.x>=canvas.width)
+				ball.vx = -1*ball.vx;
+			if(ball.y<=0)
+				ball.vy = -1*ball.vy;
+
+			var ballWall = parseInt((ball.x-margin)/wallWidth)-1;
+			if(ball.vy<0){
+				for(i=1;i<=wall.length;i++)
+					if((ball.y-ball.radius<margin+i*wallHeight&&ball.y>margin)&&(ball.x+ball.radius>=margin&&ball.x-ball.radius<=margin+wallnum*wallWidth)){
+						validate(i-1);
+						break;
+					}
+			}
+
+			function validate(i){
+				wall.forEach(function(row,Rindex){
+					if(Rindex == i)
+						wall[Rindex].forEach(function(col,Cindex){
+							if(ballWall ==Cindex){
+								if(col==0||col==1)
+									{
+										wall[Rindex][Cindex]--;
+										ball.vy = -1*ball.vy;
+									}
+									else{
+												if(wall[Rindex][Cindex+1])
+													if(ball.x+ball.radius>=margin+(Cindex+1)*wallWidth){
+														if(wall[Rindex][Cindex+1]==1||wall[Rindex][Cindex+1]==0)
+														{
+															ball.vx = -1*ball.vx;
+															wall[Rindex][Cindex+1]--;
+															ball.x = margin+(Cindex+1)*wallWidth-ball.radius-1;
+														}
+													}
+												if(wall[Rindex][Cindex-1])
+													if(ball.x-ball.radius<=margin+(Cindex-1)*wallWidth)
+													{
+															
+															if(wall[Rindex][Cindex-1]==1||wall[Rindex][Cindex-1]==0)
+															{
+																wall[Rindex][Cindex-1]--;
+																ball.vx = -1*ball.vx;
+																ball.x = margin+(Cindex+1)*wallWidth+ball.radius+1;
+															}
+													}
+												}
+							}
+
+						})
+				});
+			}
+		}
+		canvas.addEventListener('mousemove',function(e){
+			blank.x = e.clientX+blank.width/2;
+		})
+		var tp = setInterval(function(){
+			render();
+			update();
+		},20);
+	})()
+
+</script>
+</body>
+</html>

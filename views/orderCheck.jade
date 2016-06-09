@@ -1,0 +1,52 @@
+html(ng-app='myapp')
+  head
+    title &#x8BA2;&#x5355;&#x67E5;&#x8BE2;
+    | &#x9;&#x9;
+    meta(charset='utf-8')
+    | &#x9;&#x9;
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    |     &#x9;
+    link(rel='stylesheet', href='css/weui.min.css')
+    |     &#x9;
+    link(rel='stylesheet', href='css/swiper.min.css')
+    | &#x9;&#x9;
+    link(rel='stylesheet', href='css/orderCheck.css')
+  | &#x9;
+  body(ontouchstart='', ng-controller='myctrl')
+    .swiper-container
+      .swiper-wrapper
+        .weui_cells.weui_cells_access.swiper-slide
+          a.weui_cell(href='javascript:mySwiper.slideNext();;', ng-repeat='detail in details')
+            .weui_cell_bd.weui_cell_primary.type
+              article
+                p &#x8BA2;&#x5355;&#x53F7;&#xFF1A; {{detail.orderNum}}
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                p &#x9884;&#x7EA6;&#x4EBA;&#x59D3;&#x540D;&#xFF1A; {{detail.name}}
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                p &#x4E1A;&#x52A1;&#x7406;&#x6027;&#xFF1A; {{detail.type}}
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .(class='status{{detail.status}}')
+                p(status='{{detail.status}}')
+            | &#x9;                
+            .weui_cell_ft
+        |         
+        .weui_cells.weui_cells_access.swiper-slide
+          a.weui_cell(href='javascript:mySwiper.slidePrev();;', ng-repeat='detail in detailss')
+            .weui_cell_bd.weui_cell_primary.type
+              article
+                p &#x8BA2;&#x5355;&#x53F7;&#xFF1A; {{detail.orderNum}}
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                p &#x9884;&#x7EA6;&#x4EBA;&#x59D3;&#x540D;&#xFF1A; {{detail.name}}
+                | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+                p &#x4E1A;&#x52A1;&#x7406;&#x6027;&#xFF1A; {{detail.type}}
+              | &#x9;&#x9;&#x9;&#x9;&#x9;&#x9;
+              .(class='status{{detail.status}}')
+                p(status='{{detail.status}}')
+            | &#x9;                
+            .weui_cell_ft
+    | &#x9;&#x9;
+    script(src='js/angular.min.js')
+    | &#x9;&#x9;
+    script(type='text/javascript', src='js/swiper.min.js')
+    | &#x9;&#x9;
+    script(src='js/orderCheck.js')

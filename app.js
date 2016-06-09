@@ -18,11 +18,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/')));
+app.use(express.static(path.join(__dirname, '/'),{
+  maxAge:10,
+  dotfiles:'allow',
+  etag:'true'
+}));
 app.use(session({
   secret:'12345',
   name:'happychat',
-  cookie:{maxAge:80000},
+  cookie:{maxAge:100},
   resave: false,
   saveUninitialized: true
 }))

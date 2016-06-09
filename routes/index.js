@@ -1,19 +1,18 @@
-var express = require('express');
 var mongo = require('../controllers/mongo.js');
-var router = express.Router();
+var router = require('express').Router();
+var commond = require('../routes/commond.js');
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  var time = new Date().toTimeString();
-  res.render('login', { title: 'happychat' });
-});
-router.get('/canvas', function(req, res, next) {
-  var time = new Date().toTimeString();
-  res.render('hcanvas',function(err,html){
-    if(err)
-      console.log(err);
-    res.send(html);
-  });
-});
+
+
+//commond.post();
+//
+router.get('/',commond.getRoot);
+//
+router.get('/canvas', commond.getCanvas);
+//
+router.get('/happychat',commond.getHappychat);
+router.get('/geth',commond.geth);
+//
 router.post('/bin/www', function(req, res, next) {
 	if(req.query.action == 'login')
   		mongo.login(JSON.parse(req.query.data),res);
@@ -27,13 +26,6 @@ router.post('/bin/www', function(req, res, next) {
   		mongo.validate(req.query,res);
 	else
 		res.send(400);
-});
-router.get('/happychat',function(req,res,next){
-      res.render('main', { stylesheet: 'happychat' });
-});
-/* GET users listing. */
-router.get('/users', function(req, res, next) {
-  res.send('respond with a resource');
 });
 
 

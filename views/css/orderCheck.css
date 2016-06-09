@@ -1,0 +1,41 @@
+html *{
+	padding:0px;
+	margin:0px;
+}
+body{
+	background-color: #fbf9fe;
+	margin-top:3%
+}
+.type{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.type p{
+	font-size: 0.9rem;
+	padding:2px;
+}
+.next{
+	position: fixed;
+	left:0px;
+	right:0px;
+	bottom: 5%;
+	width: 90%;
+}
+
+.status0{
+	border: 2px solid #C88813;
+	border-radius: 10px;
+	color: #C88813;
+	padding:
+}
+.status1{
+	border: 2px solid #C88813;
+	border-radius: 10px;
+	color: #C88813;	
+}
+.status2{
+	border: 2px solid #0E901E;
+	border-radius: 10px;
+	color: #0E901E;
+}
